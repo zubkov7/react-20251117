@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { headphones } from "../../constants/mock";
 import { Headphone } from "../headphone/headphone";
 import { Tab } from "../tab/tab";
 
 export const HeadphonesPage = ({ title }) => {
-  const [activeHeadphoneId, setActiveHeadphoneId] = useState(headphones[0].id);
+  const filteredHeadphones = useMemo(() => headphones.filter(() => true), []); // сложные вычисления
+
+  const [activeHeadphoneId, setActiveHeadphoneId] = useState(
+    () =>
+      filteredHeadphones.find(({ name }) => {
+        console.log("iterate");
+        return name === "Shure AONIC 5";
+      }).id
+  );
 
   const activeHeadphone = headphones.find(({ id }) => id === activeHeadphoneId);
 
@@ -20,7 +28,7 @@ export const HeadphonesPage = ({ title }) => {
     <div>
       <h1>{title}</h1>
 
-      {headphones.map(({ name, id }) => (
+      {filteredHeadphones.map(({ name, id }) => (
         <Tab
           key={id}
           title={name}
@@ -29,12 +37,14 @@ export const HeadphonesPage = ({ title }) => {
         />
       ))}
 
-      <Headphone
-        name={activeHeadphone.name}
-        brand={activeHeadphone.brand}
-        reviews={activeHeadphone.reviews}
-        codecs={activeHeadphone.codecs}
-      />
+      {activeHeadphone && (
+        <Headphone
+          name={activeHeadphone.name}
+          brand={activeHeadphone.brand}
+          reviews={activeHeadphone.reviews}
+          codecs={activeHeadphone.codecs}
+        />
+      )}
     </div>
   );
 };
