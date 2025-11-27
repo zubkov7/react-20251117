@@ -1,16 +1,12 @@
-import { useState } from "react";
-import { useCounter } from "./use-count";
+import { useCount } from "./use-counter";
 
-export const Counter = ({ isVisible }) => {
-  //   if (!isVisible) {
-  //     return null;
-  //   }
-  const { count, increment, decrement } = useCounter();
+export const Counter = () => {
+  const { value, increment, decrement } = useCount();
 
   return (
     <div>
       <button onClick={increment}>+</button>
-      <div>{count}</div>
+      {value}
       <button onClick={decrement}>-</button>
     </div>
   );
