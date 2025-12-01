@@ -27,6 +27,7 @@ export const HeadphonesPage = ({ title }) => {
           isActive={id === activeHeadphoneId}
         />
       ))}
+
       <Headphone
         name={activeHeadphone.name}
         brand={activeHeadphone.brand}

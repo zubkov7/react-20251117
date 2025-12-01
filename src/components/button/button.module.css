@@ -1,0 +1,18 @@
+.root {
+    color: red;
+    width: 64px;
+    height: 32px;
+}
+
+.m {
+    padding: 16px 8px;
+    font-size: 16px;
+}
+
+.l {
+    padding: 20px 8px;
+}
+
+button {
+    color: red;
+}

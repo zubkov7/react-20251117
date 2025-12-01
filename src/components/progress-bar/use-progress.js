@@ -20,7 +20,6 @@ export const useProgress = () => {
     };
 
     window.addEventListener("scroll", handleSroll);
-
     return () => {
       window.removeEventListener("scroll", handleSroll);
     };
