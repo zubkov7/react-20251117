@@ -2,7 +2,6 @@
     box-shadow: none;
     border: none;
     cursor: pointer;
-    background-color: lightsalmon;
 
     &:hover {
         opacity: 0.9;
@@ -17,4 +16,12 @@
 .size400 {
     font-size: 16px;
     padding: 7px 14px;
+}
+
+.light {
+    background-color: lightsalmon;
+}
+
+.dark {
+    background-color: aquamarine;
 }

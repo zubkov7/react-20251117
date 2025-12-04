@@ -6,3 +6,5 @@ const root = document.getElementById("root");
 const reactRoot = createRoot(root);
 
 reactRoot.render(<App />);
+
+console.log(reactRoot);
