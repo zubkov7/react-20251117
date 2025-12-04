@@ -3,8 +3,8 @@ export const Reviews = ({ reviews }) => {
     <div>
       <h3>Reviews</h3>
       <ul>
-        {reviews?.map((text) => (
-          <li key={text}>{text}</li>
+        {reviews?.map((text, index) => (
+          <li key={index}>{text}</li>
         ))}
       </ul>
     </div>

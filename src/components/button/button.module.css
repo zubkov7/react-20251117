@@ -1,18 +1,20 @@
 .root {
-    color: red;
-    width: 64px;
-    height: 32px;
+    box-shadow: none;
+    border: none;
+    cursor: pointer;
+    background-color: lightsalmon;
+
+    &:hover {
+        opacity: 0.9;
+    }
 }
 
-.m {
-    padding: 16px 8px;
+.size500 {
+    font-size: 18px;
+    padding: 8px 16px;
+}
+
+.size400 {
     font-size: 16px;
-}
-
-.l {
-    padding: 20px 8px;
-}
-
-button {
-    color: red;
+    padding: 7px 14px;
 }

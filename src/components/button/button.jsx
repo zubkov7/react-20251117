@@ -1,21 +1,23 @@
+import classNames from "classnames";
 import styles from "./button.module.css";
 
 export const Button = ({
-  text,
+  title,
+  onClick,
+  disabled,
+  size = "500",
   className,
-  sizeVariant, // 500 | 600 | 700 m | l | xl
-  color, // dark light
-  viewVariant, // warning default error
 }) => {
-  return <button className={`${styles.root} ${className}`}>{text}</button>;
-  //   return (
-  //     <button
-  //       className={classNames(styles.root, className, {
-  //         [styles.m]: sizeVariant === "m",
-  //         [styles.l]: sizeVariant === "l",
-  //       })}
-  //     >
-  //       {text}
-  //     </button>
-  //   );
+  return (
+    <button
+      className={classNames(styles.root, className, {
+        [styles.size500]: size === "500",
+        [styles.size400]: size === "400",
+      })}
+      disabled={disabled}
+      onClick={onClick}
+    >
+      {title}
+    </button>
+  );
 };

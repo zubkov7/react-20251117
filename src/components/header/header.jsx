@@ -1,3 +1,9 @@
+import styles from "./header.module.css";
+
 export const Header = () => {
-  return <header>header</header>;
+  return (
+    <header className={styles.header}>
+      <span>Headphones shop</span>
+    </header>
+  );
 };
