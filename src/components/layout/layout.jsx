@@ -1,3 +1,4 @@
+import { Cart } from "../cart/cart";
 import { Footer } from "../footer/footer";
 import { Header } from "../header/header";
 import { ProgressBar } from "../progress-bar/progress-bar";
@@ -10,6 +11,7 @@ export const Layout = ({ children }) => {
       <ProgressBar />
       <Header />
       <main className={styles.main}>{children}</main>
+      <Cart />
       <Footer />
     </div>
   );

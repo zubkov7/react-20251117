@@ -4,8 +4,9 @@ import { Reviews } from "../reviews/reviews";
 import { HeadphoneCounter } from "../headphone-counter/headphone-counter";
 import { use } from "react";
 import { AuthContext } from "../auth-context";
+import { useSelector } from "react-redux";
 
-export const Headphone = ({ name, brand, reviews, codecs }) => {
+export const Headphone = ({ name, brand, reviews, codecs, id }) => {
   const { auth } = use(AuthContext);
   const { isAuthorized } = auth;
 
@@ -21,7 +22,7 @@ export const Headphone = ({ name, brand, reviews, codecs }) => {
       {codecs.length ? <Codecs codecs={codecs} /> : <div>empty codecs</div>}
       {isAuthorized && (
         <>
-          <HeadphoneCounter />
+          <HeadphoneCounter id={id} />
           <ReviewForm />
         </>
       )}

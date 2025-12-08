@@ -5,15 +5,19 @@ import { AuthContextProvider } from "../auth-context/auth-context";
 
 import "./reset.css";
 import "./app.css";
+import { Provider } from "react-redux";
+import { store } from "../../redux/store";
 
 export const App = () => {
   return (
-    <AuthContextProvider>
-      <ThemeContextProvider>
-        <Layout>
-          <HeadphonesPage />
-        </Layout>
-      </ThemeContextProvider>
-    </AuthContextProvider>
+    <Provider store={store}>
+      <AuthContextProvider>
+        <ThemeContextProvider>
+          <Layout>
+            <HeadphonesPage />
+          </Layout>
+        </ThemeContextProvider>
+      </AuthContextProvider>
+    </Provider>
   );
 };
