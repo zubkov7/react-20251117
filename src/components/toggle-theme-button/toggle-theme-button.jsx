@@ -1,16 +1,14 @@
-import { useContext } from "react";
+import { use } from "react";
+import { ThemeContext } from "../theme-context";
 import { Button } from "../button/button";
-import { ToggleThemeContext } from "../theme-context";
 
-export const ToggleThemeButton = (props) => {
-  const { setTheme } = useContext(ToggleThemeContext);
+export const ToggleThemeButton = () => {
+  const { theme, toggleTheme } = use(ThemeContext);
 
   return (
     <Button
-      title='toggle theme'
-      onClick={() =>
-        setTheme((theme) => (theme === "light" ? "dark" : "light"))
-      }
+      onClick={toggleTheme}
+      title={theme === "dark" ? "Switch to light" : "Switch to dark"}
     />
   );
 };

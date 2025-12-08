@@ -7,3 +7,9 @@
     padding: 10px 16px;
     background-color: lightgray;
 }
+
+.rightSection {
+    display: flex;
+    width: 25%;
+    justify-content: space-between;
+}
