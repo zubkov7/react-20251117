@@ -4,39 +4,26 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState: {},
   reducers: {
-    addToCart: (state, action) => {
-      const { payload } = action;
-
+    addToCart: (state, { payload }) => {
       state[payload] = (state[payload] || 0) + 1;
     },
-    deleteFromCart: (state, { payload }) => {
+    removeFromCart: (state, { payload }) => {
       if (!state[payload]) {
         return state;
       }
 
       state[payload] = state[payload] - 1;
 
-      if (state[payload] === 0) {
+      if (state[payload] <= 0) {
         delete state[payload];
       }
     },
   },
   selectors: {
-    selectCartItems: (state) =>
-      Object.keys(state).reduce((acc, id) => {
-        acc.push({ id, amount: state[id] });
-
-        return acc;
-      }, []),
-    selectAmountById: (state, id) => state[id],
+    selectAmountByItemId: (state, id) => state[id],
+    selectCartItemsIds: (state) => Object.keys(state),
   },
 });
 
-export const { selectCartItems, selectAmountById } = cartSlice.selectors;
-
-export const { addToCart, deleteFromCart } = cartSlice.actions; // action creator
-
-console.log("addToCart", addToCart);
-
-// action - { type: 'addToCart', { payload: 'id' }}
-// action creator - () => ({ type: 'addToCart', { payload: 'id' }})
+export const { selectAmountByItemId, selectCartItemsIds } = cartSlice.selectors;
+export const { addToCart, removeFromCart } = cartSlice.actions;

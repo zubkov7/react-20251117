@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { Headphone } from "../headphone/headphone";
-import { Button } from "../button/button";
 import { Tabs } from "../tabs/tabs";
-import { HeadphoneContainer } from "../headphone/headphone-container";
 import { useSelector } from "react-redux";
-import { selectHeadphonesIds } from "../../redux/entities/headphone/slice";
-import { HeadphoneTab } from "../headphone-tab/headphone-tab";
+import { selectHeadphonesIds } from "../../redux/entities/headphones/slice";
+import { HeadphoneContainer } from "../headphone/headphone-container";
+import { HeadphoneTabContainer } from "../headphone-tab/headphone-tab-container";
 
 export const HeadphonesPage = () => {
   const headphonesIds = useSelector(selectHeadphonesIds);
 
-  const [activeHeadphoneId, setActiveHeadphoneId] = useState(headphonesIds[0]);
+  const [activeHeadphoneId, setActiveHeadphoneId] = useState(
+    headphonesIds?.[0]
+  );
 
   const handleSetActiveHeadphoneId = (id) => {
     if (activeHeadphoneId === id) {
@@ -26,32 +26,16 @@ export const HeadphonesPage = () => {
 
       <Tabs>
         {headphonesIds.map((id) => (
-          <HeadphoneTab
+          <HeadphoneTabContainer
             key={id}
-            headphoneId={id}
+            id={id}
             onClick={() => handleSetActiveHeadphoneId(id)}
-            disabled={id === activeHeadphoneId}
+            isActive={id === activeHeadphoneId}
           />
         ))}
       </Tabs>
 
-      {activeHeadphoneId && (
-        <HeadphoneContainer
-          key={activeHeadphoneId}
-          headphoneId={activeHeadphoneId}
-        />
-      )}
+      {activeHeadphoneId && <HeadphoneContainer id={activeHeadphoneId} />}
     </div>
   );
 };
-
-// [1, 2, 3, 4];
-// [2, 1, 3, 4];
-// [{'1': 'data1',}, {'2': 'data2',}, {'3': 'data3',}, {'4': 'data4',}];
-
-// {
-//   '1': 'data1',
-//   '2': 'data2',
-//   '3': 'data3',
-//   '4': 'data4',
-// }
