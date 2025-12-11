@@ -6,8 +6,9 @@ import { CartContainer } from "../cart/cart-container";
 import styles from "./layout.module.css";
 import { AuthContext } from "../auth-context";
 import { useContext } from "react";
+import { Outlet } from "react-router";
 
-export const Layout = ({ children }) => {
+export const Layout = () => {
   const { auth } = useContext(AuthContext);
   const { isAuthorized } = auth;
 
@@ -15,7 +16,9 @@ export const Layout = ({ children }) => {
     <div className={styles.root}>
       <ProgressBar />
       <Header />
-      <main className={styles.main}>{children}</main>
+      <main className={styles.main}>
+        <Outlet />
+      </main>
       {isAuthorized && <CartContainer />}
       <Footer />
     </div>
