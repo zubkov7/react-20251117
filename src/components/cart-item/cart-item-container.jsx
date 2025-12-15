@@ -11,7 +11,5 @@ export const CartItemContainer = ({ id }) => {
     return null;
   }
 
-  return (
-    <CartItem amount={amount} headphoneName={headphone.name} headphoneId={id} />
-  );
+  return <CartItem amount={amount} headphoneName={headphone.name} />;
 };

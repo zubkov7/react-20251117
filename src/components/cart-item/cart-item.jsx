@@ -1,10 +1,7 @@
-import { HeadphoneCounter } from "../headphone-counter/headphone-counter";
-
-export const CartItem = ({ amount, headphoneName, headphoneId }) => {
+export const CartItem = ({ amount, headphoneName }) => {
   return (
     <span>
       {headphoneName} - {amount}
-      <HeadphoneCounter headphoneId={headphoneId} />
     </span>
   );
 };

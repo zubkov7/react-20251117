@@ -1,0 +1,16 @@
+.root {
+    font-size: 18px;
+    padding: 8px 16px;
+    background-color: lightsalmon;
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+.isActive {
+    opacity: 0.5;
+    pointer-events: none;
+}

@@ -21,17 +21,13 @@ export const cartSlice = createSlice({
   },
   selectors: {
     selectAmountByItemId: (state, id) => state[id],
-    // selectCartItemsIds: (state) => Object.keys(state),
   },
 });
 
-const selectCartSlice = (state) => state[cartSlice.name];
-
-// createSelector([selector1, selectore2, ...], (res1, res2, ...) => {});
-export const selectCartItemsIds = createSelector(
-  [selectCartSlice],
-  (cartSlice) => Object.keys(cartSlice)
-);
-
 export const { selectAmountByItemId } = cartSlice.selectors;
 export const { addToCart, removeFromCart } = cartSlice.actions;
+
+const selectCartSlice = (state) => state.cart;
+export const selectCartItemsIds = createSelector([selectCartSlice], (cart) =>
+  Object.keys(cart)
+);
