@@ -1,19 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { normalizedCodecs } from "../../../constants/normalized-mock";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { getCodecsByHeadphoneId } from "./get-codecs-by-headphone-id";
 
-const initialState = {
-  ids: normalizedCodecs.map(({ id }) => id),
-  entities: normalizedCodecs.reduce((acc, item) => {
-    acc[item.id] = item;
-
-    return acc;
-  }, {}),
-};
+const entityAdapter = createEntityAdapter();
 
 export const codecsSlice = createSlice({
   name: "codecs",
-  initialState,
-  selectors: { selectCodecById: (state, id) => state.entities[id] },
+  initialState: entityAdapter.getInitialState(),
+  extraReducers: (builder) =>
+    builder.addCase(getCodecsByHeadphoneId.fulfilled, (state, { payload }) => {
+      entityAdapter.setMany(state, payload);
+    }),
 });
 
-export const { selectCodecById } = codecsSlice.selectors;
+const selectCodecsSlice = (state) => state.codecs;
+
+export const { selectById: selectCodecById, selectIds: selectCodecsIds } =
+  entityAdapter.getSelectors(selectCodecsSlice);

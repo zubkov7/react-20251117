@@ -13,8 +13,8 @@ export const Layout = () => {
       <Header />
       <main className={styles.main}>
         <Outlet />
+        <CartContainer />
       </main>
-      <CartContainer />
       <Footer />
     </div>
   );

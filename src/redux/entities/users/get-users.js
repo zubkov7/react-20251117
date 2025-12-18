@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { selectHeadphonesTotal } from "./slice";
+import { selectTotalUsers } from "./slice";
 
-export const getHeadphones = createAsyncThunk(
-  "headphones/getHeadphones",
+export const getUsers = createAsyncThunk(
+  "users/getUsers",
   async (_, { rejectWithValue }) => {
-    const response = await fetch("http://localhost:3001/api/products");
+    const response = await fetch("http://localhost:3001/api/users");
 
     const result = await response.json();
 
@@ -17,7 +17,7 @@ export const getHeadphones = createAsyncThunk(
   },
   {
     condition: (_, { getState }) => {
-      return !selectHeadphonesTotal(getState());
+      return !selectTotalUsers(getState());
     },
   }
 );

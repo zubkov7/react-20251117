@@ -6,14 +6,6 @@ import { usersSlice } from "./entities/users/slice";
 import { cartSlice } from "./entities/cart/slice";
 import { requestSlice } from "./entities/request/slice";
 
-const loggerMiddleware = (store) => (next) => (action) => {
-  // middleware logic
-
-  console.log(action);
-
-  return next(action);
-};
-
 export const store = configureStore({
   reducer: {
     [headphonesSlice.name]: headphonesSlice.reducer,
@@ -23,6 +15,4 @@ export const store = configureStore({
     [cartSlice.name]: cartSlice.reducer,
     [requestSlice.name]: requestSlice.reducer,
   },
-  middleware: (getDefaultMiddlewares) =>
-    getDefaultMiddlewares().concat(loggerMiddleware),
 });

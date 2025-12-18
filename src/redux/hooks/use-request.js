@@ -1,30 +1,25 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectRequestStatus } from "../entities/request/slice";
+import { selectStatus } from "../entities/request/slice";
 
-export const useRequest = (thunk, params) => {
-  const [request, setRequest] = useState();
-
-  const requestStatus = useSelector((state) =>
-    selectRequestStatus(state, request?.requestId)
-  );
-
+export const useRequest = (thunk, payload) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const request = dispatch(thunk(params));
+  const [request, setRequest] = useState(null);
 
+  const requestStatus = useSelector((state) =>
+    selectStatus(state, request?.requestId)
+  );
+
+  useEffect(() => {
+    const request = dispatch(thunk(payload));
     setRequest(request);
 
     return () => {
       request.abort();
       setRequest(null);
     };
-  }, [dispatch, params, thunk]);
+  }, [thunk, payload, dispatch]);
 
-  return {
-    requestStatus,
-    isLoading: requestStatus === "pending",
-    isError: requestStatus === "rejected",
-  };
+  return requestStatus;
 };
