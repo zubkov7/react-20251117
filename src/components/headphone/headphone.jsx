@@ -6,7 +6,13 @@ import { Tabs } from "../tabs/tabs";
 import { TabLink } from "../tab-link/tab-link";
 import { Outlet } from "react-router";
 
-export const Headphone = ({ name, brand, id }) => {
+export const Headphone = ({
+  name,
+  brand,
+  id,
+  addReview,
+  isAddReviewLoading,
+}) => {
   const { auth } = use(AuthContext);
   const { isAuthorized } = auth;
 
@@ -28,7 +34,10 @@ export const Headphone = ({ name, brand, id }) => {
       {isAuthorized && (
         <>
           <HeadphoneCounter headphoneId={id} />
-          <ReviewForm />
+          <ReviewForm
+            onSubmit={addReview}
+            isSubmitDisabled={isAddReviewLoading}
+          />
         </>
       )}
     </section>

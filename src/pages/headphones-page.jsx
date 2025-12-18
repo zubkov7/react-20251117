@@ -1,24 +1,18 @@
 import { Tabs } from "../components/tabs/tabs";
-import { useSelector } from "react-redux";
-import { selectHeadphonesIds } from "../redux/entities/headphones/slice";
-import { HeadphoneTabContainer } from "../components/headphone-tab/headphone-tab-container";
+
+import { useGetHeadphonesQuery } from "../redux/services/api";
+import { TabLink } from "../components/tab-link/tab-link";
 import { Outlet } from "react-router";
-import { getHeadphones } from "../redux/entities/headphones/get-headphones";
-import {
-  REQUEST_STATUS_PENDING,
-  REQUEST_STATUS_REJECTED,
-} from "../redux/constants";
-import { useRequest } from "../redux/hooks/use-request";
 
 export const HeadphonesPage = () => {
-  const headphonesIds = useSelector(selectHeadphonesIds);
-  const requestStatus = useRequest(getHeadphones);
+  const { data, isError, isFetching, isLoading, refetch } =
+    useGetHeadphonesQuery();
 
-  if (requestStatus === REQUEST_STATUS_PENDING || !headphonesIds?.length) {
+  if (isLoading) {
     return "loading...";
   }
 
-  if (requestStatus === REQUEST_STATUS_REJECTED) {
+  if (isError) {
     return "ERROR";
   }
 
@@ -26,9 +20,13 @@ export const HeadphonesPage = () => {
     <div>
       <h1>Headphones Page</h1>
 
+      <button onClick={refetch}>refetch</button>
+
       <Tabs>
-        {headphonesIds.map((id) => (
-          <HeadphoneTabContainer key={id} id={id} />
+        {data.map(({ id, name }) => (
+          <TabLink key={id} to={`/headphones/${id}`}>
+            {name}
+          </TabLink>
         ))}
       </Tabs>
 

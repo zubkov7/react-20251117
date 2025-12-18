@@ -9,28 +9,26 @@ import {
   REQUEST_STATUS_PENDING,
   REQUEST_STATUS_REJECTED,
 } from "../redux/constants";
+import { useGetReviewsByHeadphoneIdQuery } from "../redux/services/api";
 
 export const HeadphoneReviewsPage = () => {
   const { headphoneId } = useParams();
 
   const usersRequestStatus = useRequest(getUsers);
-  const reviewsRequestStatus = useRequest(getReviewsByHeadphoneId, headphoneId);
+  const {
+    data,
+    isLoading: isLoadingReviews,
+    isError: isErrorReviews,
+    isFetching,
+  } = useGetReviewsByHeadphoneIdQuery(headphoneId);
 
   const isLoading =
-    usersRequestStatus === REQUEST_STATUS_PENDING ||
-    reviewsRequestStatus === REQUEST_STATUS_PENDING;
+    usersRequestStatus === REQUEST_STATUS_PENDING || isLoadingReviews;
 
   const isError =
-    usersRequestStatus === REQUEST_STATUS_REJECTED ||
-    reviewsRequestStatus === REQUEST_STATUS_REJECTED;
+    usersRequestStatus === REQUEST_STATUS_REJECTED || isErrorReviews;
 
-  const headphone = useSelector((state) =>
-    selectHeadphoneById(state, headphoneId)
-  );
-
-  const { reviews } = headphone || {};
-
-  if (isLoading) {
+  if (isFetching) {
     return "loading...";
   }
 
@@ -38,9 +36,5 @@ export const HeadphoneReviewsPage = () => {
     return "ERROR";
   }
 
-  return reviews.length ? (
-    <Reviews reviewsIds={reviews} />
-  ) : (
-    <div>empty review</div>
-  );
+  return data?.length ? <Reviews reviews={data} /> : <div>empty review</div>;
 };
