@@ -1,34 +1,27 @@
-import { useSelector } from "react-redux";
-import { useRequest } from "../../redux/hooks/use-request";
-import { getUsers } from "../../redux/entities/users/get-users";
-import { ReviewContainer } from "../review/review-container";
-import { selectTotalUsers } from "../../redux/entities/users/slice";
-import {
-  REQUEST_STATUS_PENDING,
-  REQUEST_STATUS_REJECTED,
-} from "../../redux/constants";
+import { use } from "react";
+import { ReviewForm } from "../review-form/review-form";
 import { Review } from "../review/review";
+import { AuthContext } from "../auth-context";
 
-export const Reviews = ({ reviews }) => {
-  // const users = useSelector(selectTotalUsers);
-  // const requestStatus = useRequest(getUsers);
-
-  // if (requestStatus === REQUEST_STATUS_PENDING || !users) {
-  //   return "loading...";
-  // }
-
-  // if (requestStatus === REQUEST_STATUS_REJECTED) {
-  //   return "ERROR";
-  // }
+export const Reviews = ({ reviews, onAddReview, isSubmitButtonDisabled }) => {
+  const { auth } = use(AuthContext);
 
   return (
     <div>
       <h3>Reviews</h3>
-      {reviews?.map(({ id, text, user }) => (
-        <li key={id}>
-          <Review text={text} userId={user} />
-        </li>
-      ))}
+      <ul>
+        {reviews.map(({ id, text, user }) => (
+          <li key={id}>
+            <Review text={text} userId={user} />
+          </li>
+        ))}
+      </ul>
+      {auth.isAuthorized && (
+        <ReviewForm
+          onSubmit={onAddReview}
+          isSubmitButtonDisabled={isSubmitButtonDisabled}
+        />
+      )}
     </div>
   );
 };

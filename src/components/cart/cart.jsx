@@ -1,4 +1,4 @@
-import { CartItemContainer } from "../cart-item/cart-item-container";
+import { CartItem } from "../cart-item/cart-item";
 
 export const Cart = ({ itemsIds }) => {
   return (
@@ -7,7 +7,7 @@ export const Cart = ({ itemsIds }) => {
       <ul>
         {itemsIds.map((id) => (
           <li key={id}>
-            <CartItemContainer id={id} />
+            <CartItem id={id} />
           </li>
         ))}
       </ul>

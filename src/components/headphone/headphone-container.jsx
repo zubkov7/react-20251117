@@ -1,48 +1,19 @@
 import { Headphone } from "./headphone";
-import {
-  useAddReviewMutation,
-  useGetHeadphoneByIdQuery,
-} from "../../redux/services/api";
-import { AuthContext } from "../auth-context";
-import { use } from "react";
+import { useGetHeadphonesQuery } from "../../redux/services/api/api";
 
 export const HeadphoneContainer = ({ id }) => {
-  // const { data } = useGetHeadphonesQuery(undefined, {
-  //   selectFromResult: (result) => ({
-  //     ...result,
-  //     data: data.find(({ id: headphoneId }) => id === headphoneId),
-  //   }),
-  // });
-  const { auth } = use(AuthContext);
-  const { id: userId } = auth;
+  const { data: headphone } = useGetHeadphonesQuery(undefined, {
+    selectFromResult: (result) => ({
+      ...result,
+      data: result?.data?.find(({ id: headphoneId }) => headphoneId === id),
+    }),
+  });
 
-  console.log(userId, "userId");
-
-  const { data, isError, isLoading } = useGetHeadphoneByIdQuery(id);
-  const [addReview, { isLoading: isAddReviewLoading }] = useAddReviewMutation();
-
-  const handleAddReview = (review) =>
-    addReview({ headphoneId: id, review: { ...review, user: userId } });
-
-  if (isLoading) {
-    return "loading...";
+  if (!headphone) {
+    return null;
   }
 
-  if (isError) {
-    return "error...";
-  }
+  const { name, brand } = headphone;
 
-  const { name, brand, reviews, codecs } = data || {};
-
-  return (
-    <Headphone
-      name={name}
-      brand={brand}
-      reviewsIds={reviews}
-      codecsIds={codecs}
-      id={id}
-      addReview={handleAddReview}
-      isAddReviewLoading={isAddReviewLoading}
-    />
-  );
+  return <Headphone name={name} brand={brand} id={id} />;
 };
