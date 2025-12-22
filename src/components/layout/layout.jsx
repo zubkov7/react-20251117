@@ -6,7 +6,7 @@ import { ProgressBar } from "../progress-bar/progress-bar";
 
 import styles from "./layout.module.css";
 
-export const Layout = () => {
+export const Layout = ({ sidebar }) => {
   return (
     <div className={styles.root}>
       <ProgressBar />
@@ -14,6 +14,7 @@ export const Layout = () => {
       <main className={styles.main}>
         <Outlet />
         <CartContainer />
+        {sidebar}
       </main>
       <Footer />
     </div>

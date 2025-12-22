@@ -1,11 +1,13 @@
 import { HeadphoneCounter } from "../headphone-counter/headphone-counter";
-import { use } from "react";
+import { use, useState } from "react";
 import { AuthContext } from "../auth-context";
 import { TabLink } from "../tab-link/tab-link";
 import { Tabs } from "../tabs/tabs";
+import { Modal } from "../modal/modal";
 
 export const Headphone = ({ name, brand, id }) => {
   const { auth } = use(AuthContext);
+  const [isVisible, setIsVisible] = useState(false);
 
   if (!name) {
     return null;
@@ -13,6 +15,8 @@ export const Headphone = ({ name, brand, id }) => {
 
   return (
     <section>
+      <button onClick={() => setIsVisible(true)}>show modal</button>
+      {isVisible && <Modal onClose={() => setIsVisible(false)}>Content</Modal>}
       <h2>{name}</h2>
       <h3>Brand</h3>
       <div>{brand}</div>

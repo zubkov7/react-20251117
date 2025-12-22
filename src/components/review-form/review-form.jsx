@@ -3,9 +3,11 @@ import { Counter } from "../counter/counter";
 import { useForm } from "./use-form";
 
 import styles from "./review-form.module.css";
+import { withAuthorized } from "../../hocs/with-authorized";
 
-export const ReviewForm = ({ onSubmit, isSubmitButtonDisabled }) => {
-  const { form, setText, incrementRating, decrementRating, clear } = useForm();
+const Component = ({ onSubmit, isSubmitButtonDisabled, initialForm }) => {
+  const { form, setText, incrementRating, decrementRating, clear } =
+    useForm(initialForm);
 
   const { text, rating } = form;
 
@@ -38,3 +40,8 @@ export const ReviewForm = ({ onSubmit, isSubmitButtonDisabled }) => {
     </>
   );
 };
+
+export const ReviewForm = withAuthorized({
+  AuthorizedComponent: Component,
+  UnathorizedComponent: null,
+});

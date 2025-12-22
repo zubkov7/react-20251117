@@ -16,12 +16,10 @@ export const Reviews = ({ reviews, onAddReview, isSubmitButtonDisabled }) => {
           </li>
         ))}
       </ul>
-      {auth.isAuthorized && (
-        <ReviewForm
-          onSubmit={onAddReview}
-          isSubmitButtonDisabled={isSubmitButtonDisabled}
-        />
-      )}
+      <ReviewForm
+        onSubmit={onAddReview}
+        isSubmitButtonDisabled={isSubmitButtonDisabled}
+      />
     </div>
   );
 };
